@@ -5,27 +5,43 @@ class Player {
         this.posx = width;
         this.posy = height - this.height;
         this.image;
-        this.gravity = 0.5;
+        this.imageRight;
+        this.imageLeft;
+        this.gravity = 0.4;
         this.velocity = 0;
     }
     preload() {
-        this.image = loadImage('assets/knight.png')
+        this.image = loadImage('assets/knight-right.png')
+        this.imageRight = loadImage('assets/knight-right.png')
+        this.imageLeft = loadImage('assets/knight-left.png')
     }
     moveLeft() {
         if (keyIsDown(LEFT_ARROW)) {
-            this.posx -= 3;
+            this.posx -= 5;
+            this.image = this.imageLeft;
         }
     }
     moveRight() {
         if (keyIsDown(RIGHT_ARROW)) {
-            this.posx += 3;
+            this.posx += 5;
+            this.image = this.imageRight;
+        }
+    }
+    onGround(){
+        if (player.posy === height - 45) {
+            return true;
+        }
+        else {
+            return false;
         }
     }
     jump() {
-        this.velocity = - 10;
+        if (this.onGround()) {
+            this.velocity = - 10;
+        }
     }
     draw(){
-        clear()
+        this.posx = constrain(this.posx, square, square*23)
         this.moveLeft()
         this.moveRight()
         this.velocity += this.gravity;
