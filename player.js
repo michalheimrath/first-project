@@ -1,22 +1,26 @@
 class Player {
     constructor() {
-        this.height = 45;
-        this.width = 40;
+        this.height = square;
+        this.width = square;
         this.posx = width;
         this.posy = height - this.height;
         this.image;
         this.imageRight;
         this.imageLeft;
-        this.gravity = 0.4;
+        this.gravity = 0;
         this.velocity = 0;
+        this.locy = 0;
     }
     //sets player position
     currentState() {
         this.velocity += this.gravity;
         this.posy += this.velocity;
-        if (this.posy >= height - this.height) {
-            this.posy = height - this.height;
+        if (!this.fall()) {
+            this.velocity = 0;
+            this.gravity = 0;
+            //this.posy = this.locy;
         }
+        else this.gravity = 0.4
     }
 
     preload() {
@@ -26,30 +30,29 @@ class Player {
     }
     //get location of bottom middle of character
     location() {
-        console.log('loc')
-        let loc = [Math.floor((this.posx + 21)/square), Math.floor((this.posy + square)/square)];
+        let loc = [Math.floor((this.posx + 21)/square), Math.floor((this.posy + 50)/square)];
         console.log(loc)
+        console.log(this.posy)
+        console.log(this.posx)
+        this.locy = loc[1];
         return loc;
     }
     //get name of block
     blockType() {
-        console.log('block')
         let type = this.location();
-        //
         console.log(map.blocks[type[1]][type[0]].name)
-        //
         return map.blocks[type[1]][type[0]].name;
     }
-    //check if on block thats solid and keeps character there
+    //check if on block thats solid 
     onSolid() {
-        console.log('SOLID')
         if (this.blockType() === 'solid') {
+            //keeps character on solid block
+            this.posy = (this.location()[1] * square) - square
             return 'solid'
         }
     }
     //check if character is falling
     fall() {
-        console.log('falling')
         if (this.onSolid() === 'solid') {
             return false
         }
@@ -59,9 +62,9 @@ class Player {
     }
 
     jump() {
-        console.log('jump')
         if (!this.fall()) {
             this.velocity = - 10;
+            this.gravity = 0.2;
         }
     }
 
@@ -81,6 +84,7 @@ class Player {
 
     draw(){
         this.posx = constrain(this.posx, square, square*23)
+        this.posy = constrain(this.posy, square, square*11)
         this.moveLeft()
         this.moveRight()
         
