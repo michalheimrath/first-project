@@ -15,6 +15,11 @@ class Player {
         this.imageRight = loadImage('assets/knight-right.png')
         this.imageLeft = loadImage('assets/knight-left.png')
     }
+
+    getLocation() {
+        
+    }
+
     moveLeft() {
         if (keyIsDown(LEFT_ARROW)) {
             this.posx -= 5;
