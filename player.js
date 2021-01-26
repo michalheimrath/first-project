@@ -18,7 +18,6 @@ class Player {
         if (!this.fall()) {
             this.velocity = 0;
             this.gravity = 0;
-            //this.posy = this.locy;
         }
         else this.gravity = 0.4
     }
@@ -30,7 +29,16 @@ class Player {
     }
     //get location of bottom middle of character
     location() {
-        let loc = [Math.floor((this.posx + 21)/square), Math.floor((this.posy + 50)/square)];
+        let loc = [Math.floor((this.posx + 21)/square), Math.floor((this.posy)/square)];
+        console.log(loc)
+        console.log(this.posy)
+        console.log(this.posx)
+        this.locy = loc[1];
+        return loc;
+    }
+    // get locations of blocks around character
+    blockLocation(offsetX,offsetY) {
+        let loc = [Math.floor((this.posx + offsetX)/square), Math.floor((this.posy + offsetY)/square)];
         console.log(loc)
         console.log(this.posy)
         console.log(this.posx)
@@ -38,18 +46,27 @@ class Player {
         return loc;
     }
     //get name of block
-    blockType() {
-        let type = this.location();
+    blockType(offsetX = 0, offsetY = 0) {
+        let type = this.blockLocation(offsetX, offsetY);
         console.log(map.blocks[type[1]][type[0]].name)
         return map.blocks[type[1]][type[0]].name;
     }
     //check if on block thats solid 
     onSolid() {
-        if (this.blockType() === 'solid') {
+        //bottom right corner
+        if (this.blockType(square, square) === 'solid') {
             //keeps character on solid block
-            this.posy = (this.location()[1] * square) - square
+            this.posy = (this.location()[1] * square)
+            console.log(this.posy + 'aaa')
             return 'solid'
         }
+        //bottom left corner
+        if (this.blockType(0, square) == "solid") {
+            this.posy = this.location()[1] * square
+            console.log(this.posy + 'bbb')
+            return "solid";
+        }
+            return false;       
     }
     //check if character is falling
     fall() {
