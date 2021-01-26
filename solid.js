@@ -4,8 +4,8 @@ class Solid {
         this.posy = y;
         this.name = 'solid';
     }
+
     draw() {
-        fill('blue')
-        rect(this.posx * square, this.posy * square, square, square);
+        image(imageGorund, this.posx * square, this.posy * square, square, square);
     }
 }

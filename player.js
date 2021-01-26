@@ -30,40 +30,31 @@ class Player {
     //get location of bottom middle of character
     location() {
         let loc = [Math.floor((this.posx + 21)/square), Math.floor((this.posy)/square)];
-        console.log(loc)
-        console.log(this.posy)
-        console.log(this.posx)
         this.locy = loc[1];
         return loc;
     }
     // get locations of blocks around character
     blockLocation(offsetX,offsetY) {
         let loc = [Math.floor((this.posx + offsetX)/square), Math.floor((this.posy + offsetY)/square)];
-        console.log(loc)
-        console.log(this.posy)
-        console.log(this.posx)
-        this.locy = loc[1];
         return loc;
     }
     //get name of block
-    blockType(offsetX = 0, offsetY = 0) {
+    blockType(offsetX, offsetY) {
         let type = this.blockLocation(offsetX, offsetY);
-        console.log(map.blocks[type[1]][type[0]].name)
         return map.blocks[type[1]][type[0]].name;
     }
-    //check if on block thats solid 
+    //check if character is on block that's solid 
     onSolid() {
         //bottom right corner
-        if (this.blockType(square, square) === 'solid') {
+        if (this.blockType(30, square) === 'solid') {
             //keeps character on solid block
-            this.posy = (this.location()[1] * square)
-            console.log(this.posy + 'aaa')
+            this.posy = this.location()[1] * square
             return 'solid'
         }
         //bottom left corner
-        if (this.blockType(0, square) == "solid") {
+        if (this.blockType(20, square) == "solid") {
+            //keeps character on solid block
             this.posy = this.location()[1] * square
-            console.log(this.posy + 'bbb')
             return "solid";
         }
             return false;       
@@ -80,28 +71,31 @@ class Player {
 
     jump() {
         if (!this.fall()) {
-            this.velocity = - 10;
-            this.gravity = 0.2;
+            this.velocity = - 8.5;
+            this.gravity = 0.15;
         }
     }
 
     moveLeft() {
         if (keyIsDown(LEFT_ARROW)) {
-            this.posx -= 5;
-            this.image = this.imageLeft;
+            //stop from walking in to block
+            if (this.blockType(-1, square/2) != "solid") {
+                this.posx -= 3;
+                this.image = this.imageLeft;
+            }
         }
     }
 
     moveRight() {
         if (keyIsDown(RIGHT_ARROW)) {
-            this.posx += 5;
-            this.image = this.imageRight;
+            if (this.blockType(square, square/2) != "solid") {
+                this.posx += 3;
+                this.image = this.imageRight;
+            }
         }
     }
 
     draw(){
-        this.posx = constrain(this.posx, square, square*23)
-        this.posy = constrain(this.posy, square, square*11)
         this.moveLeft()
         this.moveRight()
         
