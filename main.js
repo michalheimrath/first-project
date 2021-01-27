@@ -30,7 +30,7 @@ function preload() {
     player.preload()
     imageGorund = loadImage('assets/Ground.png')
     imageSpikes = loadImage('assets/Spike.png')
-    imageDiamond = loadImage('assets/Diamond.png')
+    imageDiamond = loadImage('assets/diamond.png')
     imageEnemy = loadImage('assets/enemy.png')
 }
 
