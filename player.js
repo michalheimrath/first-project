@@ -13,7 +13,7 @@ class Player {
         this.velocity = 0;
         this.locy = 0;
     }
-    //sets player position
+    //sets player gravety and velocity
     currentState() {
         this.velocity += this.gravity;
         this.posy += this.velocity;
@@ -27,7 +27,17 @@ class Player {
     endGame() {
         if (this.onSpike()) this.lives -= 1;
         if (this.onDiamond()) this.diamond += 1;
-
+        if(player.lives === 0) {
+            textSize(30);
+            text('YOU LOSE', (level1[0].length * square)/2 - square, (level1.length * square)/2);
+            noLoop()
+        }
+        if(player.diamond === 1) {
+            textSize(30);
+            text('YOU WIN', (level1[0].length * square)/2 - square, (level1.length * square)/2);
+            noLoop()
+            noLoop()
+        }
     }
 
     preload() {
@@ -125,10 +135,16 @@ class Player {
         }
     }
 
+    moveUp() {
+        if (keyIsDown(UP_ARROW) ) {
+            this.jump();
+        }
+    }
+
     draw(){
         this.moveLeft()
         this.moveRight()
-        
+        this.moveUp()
         image(this.image, this.posx, this.posy, this.width, this.height)
     }
 }
