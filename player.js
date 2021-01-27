@@ -86,7 +86,7 @@ class Player {
 
     jump() {
         if (!this.fall()) {
-            this.velocity = - 8.5;
+            this.velocity = - 8.8;
             this.gravity = 0.15;
         }
     }
