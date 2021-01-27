@@ -1,6 +1,7 @@
 class Map {
     constructor(b) {
         this.blocks = b;
+        this.enemyList = [];
     //}
     //push object into map
         for (let row = 0; row < this.blocks.length; row++) {
@@ -13,6 +14,10 @@ class Map {
                 }
                 if (this.blocks[row][col] === 3) {
                     this.blocks[row][col] = new Diamond(col, row);
+                }
+                if (this.blocks[row][col] === 4) {
+                    this.blocks[row][col] = new Enemy(col, row);
+                    this.enemyList.push(this.blocks[row][col]);
                 }
             }
         }

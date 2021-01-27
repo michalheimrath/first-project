@@ -3,7 +3,7 @@ class Player {
         this.height = square;
         this.width = square;
         this.posx = square;
-        this.posy = height - this.height;
+        this.posy = 500;
         this.diamond = 0;
         this.lives = 1;
         this.image;
@@ -26,6 +26,7 @@ class Player {
     //cheks for end game
     endGame() {
         if (this.onSpike()) this.lives -= 1;
+        if (this.onEnemy()) this.lives -= 1;
         if (this.onDiamond()) this.diamond += 1;
         if(player.lives === 0) {
             textSize(30);
@@ -72,6 +73,17 @@ class Player {
         }
             return false;           
     }
+    //check if character is on block that's a spike
+    onEnemy() {
+        if (this.blockType(30, square - 10) === 'enemy') {
+            return true;
+        }
+        //bottom left corner
+        if (this.blockType(20, square - 10) === "enemy") {
+            return true;
+        }
+            return false;           
+    }
     // check if character grabbed the diamond
     onDiamond() {
         if (this.blockType(30, square - 2) === 'diamond') {
@@ -113,6 +125,7 @@ class Player {
     //get name of block
     blockType(offsetX, offsetY) {
         let type = this.blockLocation(offsetX, offsetY);
+        //console.log(map.blocks[type[1]][type[0]].name);
         return map.blocks[type[1]][type[0]].name;
     }
 
@@ -141,10 +154,38 @@ class Player {
         }
     }
 
+    moveEnemy() {
+        //change position only every X frames
+        if(frameCount % 15 === 0) {
+            for (let ele of map.enemyList) {
+                let x = ele.posx;
+                let y = ele.posy;
+                //check if enemy can go left and move if possible
+                if (map.blocks[y][x-1] === 0 && map.blocks[y+1][x-1] != 0 && ele.enemyVelocity === "L") {
+                    map.blocks[y][x-1] = map.blocks[y][x]
+                    map.blocks[y][x] = 0
+                    ele.posx -= 1;
+                    //console.log(ele)
+                }
+                else ele.enemyVelocity = "R"
+                //check if enemy can go left and move if possible
+                if (map.blocks[y][x+1] === 0 && map.blocks[y+1][x+1] != 0 && ele.enemyVelocity === "R"){
+                    map.blocks[y][x+1] = map.blocks[y][x]
+                    map.blocks[y][x] = 0
+                    ele.posx += 1;
+                    //console.log(ele)
+                }
+                else ele.enemyVelocity = "L"
+                console.log(ele);
+            }
+        }
+    }
+
     draw(){
         this.moveLeft()
         this.moveRight()
         this.moveUp()
         image(this.image, this.posx, this.posy, this.width, this.height)
+        this.moveEnemy()
     }
 }
