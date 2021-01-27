@@ -2,8 +2,10 @@ class Player {
     constructor() {
         this.height = square;
         this.width = square;
-        this.posx = width;
+        this.posx = square;
         this.posy = height - this.height;
+        this.diamond = 0;
+        this.lives = 1;
         this.image;
         this.imageRight;
         this.imageLeft;
@@ -21,12 +23,72 @@ class Player {
         }
         else this.gravity = 0.4
     }
+    //cheks for end game
+    endGame() {
+        if (this.onSpike()) this.lives -= 1;
+        if (this.onDiamond()) this.diamond += 1;
+
+    }
 
     preload() {
         this.image = loadImage('assets/knight-right.png')
         this.imageRight = loadImage('assets/knight-right.png')
         this.imageLeft = loadImage('assets/knight-left.png')
     }
+    //check if character is on block that's solid 
+    onSolid() {
+        //bottom right corner
+        if (this.blockType(30, square) === 'solid') {
+            //keeps character on solid block
+            this.posy = this.location()[1] * square
+            return 'solid'
+        }
+        //bottom left corner
+        if (this.blockType(20, square) === "solid") {
+            //keeps character on solid block
+            this.posy = this.location()[1] * square
+            return "solid";
+        }
+            return false;       
+    }
+    //check if character is on block that's a spike
+    onSpike() {
+        if (this.blockType(30, square - 10) === 'spikes') {
+            return true;
+        }
+        //bottom left corner
+        if (this.blockType(20, square - 10) === "spikes") {
+            return true;
+        }
+            return false;           
+    }
+    // check if character grabbed the diamond
+    onDiamond() {
+        if (this.blockType(30, square - 2) === 'diamond') {
+            return true;
+        }
+        //bottom left corner
+        if (this.blockType(20, square - 2) === "diamond") {
+            return true;
+        }
+            return false;           
+    }
+
+    jump() {
+        if (!this.fall()) {
+            this.velocity = - 8.5;
+            this.gravity = 0.15;
+        }
+    }
+    //check if character is falling    
+    fall() {
+        if (this.onSolid() === 'solid') {
+            return false
+        }
+        else {
+            return true
+        }
+    }    
     //get location of bottom middle of character
     location() {
         let loc = [Math.floor((this.posx + 21)/square), Math.floor((this.posy)/square)];
@@ -42,38 +104,6 @@ class Player {
     blockType(offsetX, offsetY) {
         let type = this.blockLocation(offsetX, offsetY);
         return map.blocks[type[1]][type[0]].name;
-    }
-    //check if character is on block that's solid 
-    onSolid() {
-        //bottom right corner
-        if (this.blockType(30, square) === 'solid') {
-            //keeps character on solid block
-            this.posy = this.location()[1] * square
-            return 'solid'
-        }
-        //bottom left corner
-        if (this.blockType(20, square) == "solid") {
-            //keeps character on solid block
-            this.posy = this.location()[1] * square
-            return "solid";
-        }
-            return false;       
-    }
-    //check if character is falling
-    fall() {
-        if (this.onSolid() === 'solid') {
-            return false
-        }
-        else {
-            return true
-        }
-    }
-
-    jump() {
-        if (!this.fall()) {
-            this.velocity = - 8.5;
-            this.gravity = 0.15;
-        }
     }
 
     moveLeft() {
