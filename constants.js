@@ -1,3 +1,3 @@
-const square = 50;
-const height = (square*12 - 50);
+const square = 40;
+const height = (square*12 - square);
 const width = 100;

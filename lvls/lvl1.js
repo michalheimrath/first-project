@@ -32,6 +32,7 @@ function preload() {
     imageSpikes = loadImage('assets/Spike.png')
     imageDiamond = loadImage('assets/diamond.png')
     imageEnemy = loadImage('assets/enemy.png')
+    imageBackground = loadImage('assets/Cavern.jpg')
 }
 
 
@@ -41,7 +42,7 @@ function setup() {
 
 function draw() {
     clear();
-    background('rgba(229, 229, 154, 0.98)')
+    background(imageBackground)
     map.draw()
     player.draw()
     player.currentState();

@@ -39,14 +39,14 @@ class Player {
     //check if character is under block that's solid 
     underSolid() {
         //top right corner
-        if (this.blockType(square - 2, 5) === 'solid') {
+        if (this.blockType(square - 5, 5) === 'solid') {
             //keeps character on solid block
             this.velocity = 0;
             this.gravity = 4;
             return 'solid'
         }
         //top left corner
-        if (this.blockType(2, 5) === "solid") {
+        if (this.blockType(5, 5) === "solid") {
             //keeps character on solid block
             this.velocity = 0;
             this.gravity = 4;
@@ -58,13 +58,13 @@ class Player {
     //check if character is on block that's solid 
     onSolid() {
         //bottom right corner
-        if (this.blockType(square - 10, square) === 'solid') {
+        if (this.blockType(square - 5, square) === 'solid') {
             //keeps character on solid block
             this.posy = this.location()[1] * square
             return 'solid'
         }
         //bottom left corner
-        if (this.blockType(10, square) === "solid") {
+        if (this.blockType(5, square) === "solid") {
             //keeps character on solid block
             this.posy = this.location()[1] * square
             return "solid";
@@ -73,16 +73,17 @@ class Player {
     }
     //check if character is on block that's a spike
     onSpike() {
-        if (this.blockType(30, square - 10) === 'spikes') {
+        //bottom right corner
+        if (this.blockType(square - 10, square - 8) === 'spikes') {
             return true;
         }
         //bottom left corner
-        if (this.blockType(20, square - 10) === "spikes") {
+        if (this.blockType(5, square - 8) === "spikes") {
             return true;
         }
             return false;           
     }
-    //check if character is on block that's a spike
+    //check if character is on block that's an enemy
     onEnemy() {
         if (this.blockType(30, square - 10) === 'enemy') {
             return true;
@@ -99,7 +100,7 @@ class Player {
             return true;
         }
         //bottom left corner
-        if (this.blockType(20, square - 2) === "diamond") {
+        if (this.blockType(10, square - 2) === "diamond") {
             return true;
         }
             return false;           
@@ -107,7 +108,7 @@ class Player {
 
     jump() {
         if (!this.fall()) {
-            this.velocity = - 9.1;
+            this.velocity = - 8;
             this.gravity = 0.15;
         }
     }
