@@ -36,7 +36,7 @@ function preload() {
 
 
 function setup() {
-  createCanvas(level1[0].length * square, (level1.length + 1) * square);
+  createCanvas(level1[0].length * square, level1.length * square);
   }
 
 function draw() {
@@ -46,4 +46,15 @@ function draw() {
     player.draw()
     player.currentState();
     player.endGame();
+    if(player.lives === 0) {
+        textSize(30);
+        text('YOU LOSE', (level1[0].length * square)/2 - square, (level1.length * square)/2);
+        noLoop()
+    }
+    if(player.diamond === 1) {
+        textSize(30);
+        text('YOU WIN', (level1[0].length * square)/2 - square, (level1.length * square)/2);
+        noLoop()
+        noLoop()
+    }
 }

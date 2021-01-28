@@ -28,17 +28,6 @@ class Player {
         if (this.onSpike()) this.lives -= 1;
         if (this.onEnemy()) this.lives -= 1;
         if (this.onDiamond()) this.diamond += 1;
-        if(player.lives === 0) {
-            textSize(30);
-            text('YOU LOSE', (level1[0].length * square)/2 - square, (level1.length * square)/2);
-            noLoop()
-        }
-        if(player.diamond === 1) {
-            textSize(30);
-            text('YOU WIN', (level1[0].length * square)/2 - square, (level1.length * square)/2);
-            noLoop()
-            noLoop()
-        }
     }
 
     preload() {
@@ -176,7 +165,6 @@ class Player {
                     //console.log(ele)
                 }
                 else ele.enemyVelocity = "L"
-                console.log(ele);
             }
         }
     }
