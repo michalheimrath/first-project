@@ -96,11 +96,11 @@ class Player {
     }
     // check if character grabbed the diamond
     onDiamond() {
-        if (this.blockType(30, square - 2) === 'diamond') {
+        if (this.blockType(30, square - 12) === 'diamond') {
             return true;
         }
         //bottom left corner
-        if (this.blockType(10, square - 2) === "diamond") {
+        if (this.blockType(10, square - 12) === "diamond") {
             return true;
         }
             return false;           
