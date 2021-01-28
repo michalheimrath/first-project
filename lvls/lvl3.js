@@ -14,7 +14,7 @@ let level = [
     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 0, 0, 0, 0, 2, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1],
     [1, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
     [1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4, 0, 0, 0, 1],
@@ -46,13 +46,17 @@ function draw() {
     player.currentState();
     player.endGame();
     if(player.lives === 0) {
-        textSize(30);
-        text('YOU LOSE', (level[0].length * square)/2 - square, (level.length * square)/2);
+        textSize(50);
+        fill(255, 204, 0);
+        textAlign(CENTER, CENTER);
+        text('YOU LOSE', (level[0].length * square)/2, (level.length * square)/2);
         noLoop()
     }
     if(player.diamond === 1) {
-        textSize(30);
-        text('YOU WIN', (level[0].length * square)/2 - square, (level.length * square)/2);
+        textSize(50);
+        fill(255, 204, 0);
+        textAlign(CENTER, CENTER);
+        text('YOU WIN', (level[0].length * square)/2, (level.length * square)/2);
         noLoop()
         noLoop()
     }

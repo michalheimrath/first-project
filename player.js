@@ -74,11 +74,11 @@ class Player {
     //check if character is on block that's a spike
     onSpike() {
         //bottom right corner
-        if (this.blockType(square - 10, square - 8) === 'spikes') {
+        if (this.blockType(square - 10, square - 10) === 'spikes') {
             return true;
         }
         //bottom left corner
-        if (this.blockType(5, square - 8) === "spikes") {
+        if (this.blockType(10, square - 10) === "spikes") {
             return true;
         }
             return false;           
