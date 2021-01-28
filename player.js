@@ -15,6 +15,7 @@ class Player {
     }
     //sets player gravety and velocity
     currentState() {
+        this.underSolid();
         this.velocity += this.gravity;
         this.posy += this.velocity;
         if (!this.fall()) {
@@ -35,16 +36,35 @@ class Player {
         this.imageRight = loadImage('assets/knight-right.png')
         this.imageLeft = loadImage('assets/knight-left.png')
     }
+    //check if character is under block that's solid 
+    underSolid() {
+        //top right corner
+        if (this.blockType(square - 2, 5) === 'solid') {
+            //keeps character on solid block
+            this.velocity = 0;
+            this.gravity = 4;
+            return 'solid'
+        }
+        //top left corner
+        if (this.blockType(2, 5) === "solid") {
+            //keeps character on solid block
+            this.velocity = 0;
+            this.gravity = 4;
+            return "solid";
+            
+        }
+            return false;       
+    }
     //check if character is on block that's solid 
     onSolid() {
         //bottom right corner
-        if (this.blockType(30, square) === 'solid') {
+        if (this.blockType(square - 10, square) === 'solid') {
             //keeps character on solid block
             this.posy = this.location()[1] * square
             return 'solid'
         }
         //bottom left corner
-        if (this.blockType(20, square) === "solid") {
+        if (this.blockType(10, square) === "solid") {
             //keeps character on solid block
             this.posy = this.location()[1] * square
             return "solid";
@@ -87,7 +107,7 @@ class Player {
 
     jump() {
         if (!this.fall()) {
-            this.velocity = - 8.8;
+            this.velocity = - 9.1;
             this.gravity = 0.15;
         }
     }
@@ -100,9 +120,9 @@ class Player {
             return true
         }
     }    
-    //get location of bottom middle of character
+    //get location of character on the map
     location() {
-        let loc = [Math.floor((this.posx + 21)/square), Math.floor((this.posy)/square)];
+        let loc = [Math.floor((this.posx)/square), Math.floor((this.posy)/square)];
         this.locy = loc[1];
         return loc;
     }
@@ -121,7 +141,7 @@ class Player {
     moveLeft() {
         if (keyIsDown(LEFT_ARROW)) {
             //stop from walking in to block
-            if (this.blockType(-1, square/2) != "solid") {
+            if (this.blockType(-1, 5) != "solid" && this.blockType(-1, square - 5) != "solid") {
                 this.posx -= 3;
                 this.image = this.imageLeft;
             }
@@ -130,7 +150,7 @@ class Player {
 
     moveRight() {
         if (keyIsDown(RIGHT_ARROW)) {
-            if (this.blockType(square, square/2) != "solid") {
+            if (this.blockType(square, 5) != "solid" && this.blockType(square, square- 5) != "solid") {
                 this.posx += 3;
                 this.image = this.imageRight;
             }
