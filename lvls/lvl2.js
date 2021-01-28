@@ -1,4 +1,4 @@
-let level2 = [
+let level = [
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
@@ -21,7 +21,7 @@ let level2 = [
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
 ]
 
-const map = new Map(level2);
+const map = new Map(level);
 const player = new Player();
 
 function preload() {
@@ -34,7 +34,7 @@ function preload() {
 
 
 function setup() {
-  createCanvas(level2[0].length * square, level2.length * square);
+  createCanvas(level[0].length * square, level.length * square);
   }
 
 function draw() {
@@ -46,12 +46,12 @@ function draw() {
     player.endGame();
     if(player.lives === 0) {
         textSize(30);
-        text('YOU LOSE', (level2[0].length * square)/2 - square, (level2.length * square)/2);
+        text('YOU LOSE', (level[0].length * square)/2 - square, (level.length * square)/2);
         noLoop()
     }
     if(player.diamond === 1) {
         textSize(30);
-        text('YOU WIN', (level2[0].length * square)/2 - square, (level2.length * square)/2);
+        text('YOU WIN', (level[0].length * square)/2 - square, (level.length * square)/2);
         noLoop()
         noLoop()
     }
