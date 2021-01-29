@@ -40,17 +40,13 @@ class Player {
     underSolid() {
         //top right corner
         if (this.blockType(square - 5, 5) === 'solid') {
-            //keeps character on solid block
+            //keeps character under a solid block
             this.velocity = 0;
-            this.gravity = 4;
-            return 'solid'
         }
         //top left corner
         if (this.blockType(5, 5) === "solid") {
-            //keeps character on solid block
+            //keeps character under a solid block
             this.velocity = 0;
-            this.gravity = 4;
-            return "solid";
             
         }
             return false;       
